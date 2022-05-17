@@ -18,3 +18,22 @@ docker run --rm -d -p 8080:80 --name prueba nginx
 ```name```: Nombre del contenedor <br> <br>
 De esta forma entrando a [localhost:8080](http://localhost:8080/) nos tendria que salir la siguiente pagina confirmandonos de que todo está funcionando correctamente.
 ![imagen](https://user-images.githubusercontent.com/91600940/168485888-a5c402ac-8b6e-44cb-89dd-19463000a64c.png)
+
+# HTML personalizado
+Como recomiendas en el [repositorio original](https://github.com/maximofernandezriera/Ciberseguridad-PePS/blob/master/_posts/2021-01-12-nginx.md) de la guia, es recomendable crear un directorio llamado ```nginx``` y un subdirectorio dentro de este llamado ```site-content```, donde guardaremos el html personalizado.
+```
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Docker Nginx</title>
+</head>
+<body>
+  <h2>Francisco José Almansa Martínez</h2>
+</body>
+</html>
+```
+Para poder utilizar este html crearemos un volumen montado, vinculando el directorio de nuestra máquina local y asignar ese directorio a nuestro contenedor en ejecución.
+Ahora simplemente ejecutamos el mismo comando de antes pero añadiendo el parametro ```-v```, para crear el volumen, con su respectivia ruta. <br>
+```docker run --rm -d -p 8080:80 --name web -v /home/fran/Documentos/nginx/site-content:/usr/share/nginx/html nginx```
+![image](https://user-images.githubusercontent.com/91600940/168879188-5a4bf0f8-b6ab-4a37-82a6-357ce51b4ea9.png)
