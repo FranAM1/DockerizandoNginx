@@ -37,3 +37,19 @@ Para poder utilizar este html crearemos un volumen montado, vinculando el direct
 Ahora simplemente ejecutamos el mismo comando de antes pero añadiendo el parametro ```-v```, para crear el volumen, con su respectivia ruta. <br>
 ```docker run --rm -d -p 8080:80 --name web -v /home/fran/Documentos/nginx/site-content:/usr/share/nginx/html nginx```
 ![image](https://user-images.githubusercontent.com/91600940/168879188-5a4bf0f8-b6ab-4a37-82a6-357ce51b4ea9.png)
+
+# Imagen personalizada
+Para crear una imagen personalizada, necesitaremos crear un Dockerfile y agregarle nuestros comandos.
+Para esto, crearemos un archivo llamado ```Dockerfile``` dentro de ```site-content``` para luego agregarle el siguiente comando.
+```
+FROM nginx:latest
+COPY ./site-content/index.html /usr/share/nginx/html/index.html
+```
+Una vez hecho esto, para construir nuestra imagen, ejecuta el siguiente comando:
+```
+docker build -t webserver .
+```
+
+Para finalizar, podremos volver a hacer un docker run, pero esta vez usando la imagen que hemos creado. <br>
+```docker run --rm -d -p 8080:80 --name web webserver```
+![image](https://user-images.githubusercontent.com/91600940/168882555-431b5494-b4fa-4551-9f61-432a105a60cd.png)
